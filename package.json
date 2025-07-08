@@ -1,0 +1,26 @@
+{
+  "name": "ics-scada-training",
+  "version": "1.0.0",
+  "description": "Industrial Control Systems (ICS) and SCADA Security Training Platform",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'",
+    "start": "vercel dev"
+  },
+  "keywords": [
+    "cybersecurity",
+    "ics",
+    "scada",
+    "training",
+    "industrial-control-systems"
+  ],
+  "author": "USCYBERCOM Training Team",
+  "license": "MIT",
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

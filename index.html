@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICS/SCADA Training</title>
+    <meta name="description" content="Industrial Control Systems and SCADA Security Training Platform">
+    <meta name="keywords" content="cybersecurity, ics, scada, training, industrial control systems">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #8b5cf6;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .course-title {
+            font-size: 2.5em;
+            color: #8b5cf6;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #a0a0a0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #2d2d2d;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #8b5cf6 0%, #a855f7 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .module-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .module-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .module-header {
+            background: rgba(139, 92, 246, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .module-title {
+            font-size: 2em;
+            color: #8b5cf6;
+            margin-bottom: 10px;
+        }
+
+        .learning-objectives {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #8b5cf6;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "▶";
+            margin-right: 10px;
+            color: #8b5cf6;
+        }
+
+        .media-placeholder {
+            width: 100%;
+            height: 200px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px dashed #8b5cf6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            font-size: 1.1em;
+            color: #8b5cf6;
+        }
+
+        .knowledge-check {
+            background: rgba(139, 92, 246, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border: 2px solid #8b5cf6;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .answer-option {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .answer-option:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+        }
+
+        .answer-option.selected {
+            background: rgba(139, 92, 246, 0.3);
+            border-color: #8b5cf6;
+        }
+
+        .answer-option.correct {
+            background: rgba(34, 197, 94, 0.3);
+            border-color: #22c55e;
+        }
+
+        .answer-option.incorrect {
+            background: rgba(239, 68, 68, 0.3);
+            border-color: #ef4444;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #8b5cf6, #a855f7);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, #7c3aed, #9333ea);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .score-display {
+            background: rgba(139, 92, 246, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .capstone-container {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #8b5cf6;
+        }
+
+        .simulation-frame {
+            width: 100%;
+            height: 400px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 2px dashed #8b5cf6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            font-size: 1.2em;
+            color: #8b5cf6;
+        }
+
+        .certificate {
+            background: white;
+            color: #000;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+            border: 3px solid #8b5cf6;
+        }
+
+        .certificate-title {
+            font-size: 2.5em;
+            color: #8b5cf6;
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .component-list {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .component-list li {
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .component-list li::before {
+            content: "●";
+            color: #8b5cf6;
+            position: absolute;
+            left: -15px;
+        }
+
+        .purdue-levels {
+            background: rgba(139, 92, 246, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .level {
+            background: rgba(139, 92, 246, 0.1);
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .threat-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .threat-item {
+            background: rgba(239, 68, 68, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ef4444;
+        }
+
+        .vulnerability-item {
+            background: rgba(245, 158, 11, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            margin: 10px 0;
+        }
+
+        .cmi5-status {
+            background: rgba(34, 197, 94, 0.2);
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .cmi5-error {
+            background: rgba(239, 68, 68, 0.2);
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .course-title {
+                font-size: 1.8em;
+            }
+            
+            .module-title {
+                font-size: 1.5em;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .threat-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">USCYBERCOM</div>
+            <h1 class="course-title">Industrial Control Systems (ICS) and SCADA</h1>
+            <p class="subtitle">Introductory Training Curriculum</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <div id="cmi5Status" class="cmi5-status" style="display: none;">
+                LMS Connection: <span id="connectionStatus">Connecting...</span>
+            </div>
+        </div>
+
+        <!-- Module 1 -->
+        <div class="module-container active" id="module1">
+            <div class="module-header">
+                <h2 class="module-title">Module 1: Introduction to ICS and SCADA Systems</h2>
+                <div class="learning-objectives">
+                    <h3>Learning Objectives:</h3>
+                    <ul class="component-list">
+                        <li>Understand the basic architecture and components of ICS and SCADA systems</li>
+                        <li>Identify common ICS/SCADA environments (e.g., power grids, water treatment plants)</li>
+                        <li>Recognize the importance of ICS/SCADA in critical infrastructure</li>
+                        <li>Understand the Purdue Model and its relevance to ICS/SCADA segmentation</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Section 1.1: What Are ICS and SCADA Systems?</h3>
+                <p>Industrial Control Systems (ICS) are programmable systems and devices that interact with the physical environment to monitor and control industrial processes. ICS includes Supervisory Control and Data Acquisition (SCADA) systems, Distributed Control Systems (DCS), and other configurations commonly used in industrial sectors and critical infrastructure.</p>
+                
+                <p>These systems rely on components such as Programmable Logic Controllers (PLCs), sensors, actuators, and Human-Machine Interfaces (HMIs) to regulate and optimize operations.</p>
+
+                <div class="media-placeholder">
+                    📸 Placeholder: ICS/SCADA Architecture Diagram
+                    <br>Recommended: Labeled diagram showing PLCs, RTUs, HMIs, and sensors with data flow arrows
+                </div>
+
+                <h4 style="color: #8b5cf6; margin: 20px 0 10px 0;">Key Components of ICS/SCADA Systems:</h4>
+                <ul class="component-list">
+                    <li><strong>PLCs</strong>: Specialized computers that execute control logic for machinery and processes</li>
+                    <li><strong>RTUs</strong>: Devices that collect data from sensors and transmit it to central systems</li>
+                    <li><strong>HMIs</strong>: Interfaces that allow operators to monitor and control processes</li>
+                    <li><strong>Sensors and Actuators</strong>: Devices that measure physical parameters (e.g., temperature, pressure) and execute actions</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Section 1.2: ICS/SCADA Environments</h3>
+                <p>ICS/SCADA systems are deployed in various critical infrastructure environments, including:</p>
+                
+                <div class="threat-list">
+                    <div class="threat-item">
+                        <h4>Power Grids</h4>
+                        <p>Managing electricity generation, transmission, and distribution across regional and national networks.</p>
+                    </div>
+                    <div class="threat-item">
+                        <h4>Water Treatment Plants</h4>
+                        <p>Monitoring and controlling water purification and distribution processes for municipal and industrial use.</p>
+                    </div>
+                </div>
+
+                <div class="media-placeholder">
+                    🎥 Placeholder: Animated Video - ICS/SCADA Environments
+                    <br>Recommended: Animations showing real-world examples of ICS/SCADA systems in action
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Section 1.3: The Purdue Model</h3>
+                <p>The Purdue Model is a hierarchical framework for segmenting ICS/SCADA systems into levels, ranging from enterprise systems (Level 5) to physical processes (Level 0). This segmentation helps isolate critical systems and reduce risk.</p>
+
+                <div class="purdue-levels">
+                    <div class="level">
+                        <strong>Level 5: Enterprise IT Systems</strong> - Business applications, ERP systems
+                    </div>
+                    <div class="level">
+                        <strong>Level 4: Site-wide Operations</strong> - Plant-wide monitoring and coordination
+                    </div>
+                    <div class="level">
+                        <strong>Level 3: Operations Management</strong> - Production scheduling and optimization
+                    </div>
+                    <div class="level">
+                        <strong>Level 2: Supervisory Control</strong> - SCADA systems and HMIs
+                    </div>
+                    <div class="level">
+                        <strong>Level 1: Control Systems</strong> - PLCs, RTUs, and basic control
+                    </div>
+                    <div class="level">
+                        <strong>Level 0: Physical Processes</strong> - Sensors, actuators, and physical equipment
+                    </div>
+                </div>
+
+                <div class="media-placeholder">
+                    📸 Placeholder: Purdue Model Diagram
+                    <br>Recommended: Hierarchical diagram with labeled levels and system examples
+                </div>
+            </div>
+
+            <div class="knowledge-check">
+                <h3>Knowledge Check - Module 1</h3>
+                <div class="question" id="m1q1">
+                    <div class="question-text">Question 1: What are the primary components of an ICS system?</div>
+                    <div class="answer-option" data-correct="true">PLCs, RTUs, HMIs, sensors, and actuators</div>
+                    <div class="answer-option" data-correct="false">Only PLCs and RTUs</div>
+                    <div class="answer-option" data-correct="false">Sensors and actuators only</div>
+                    <div class="answer-option" data-correct="false">HMIs and RTUs only</div>
+                </div>
+                <div class="question" id="m1q2">
+                    <div class="question-text">Question 2: What is the purpose of the Purdue Model in ICS/SCADA systems?</div>
+                    <div class="answer-option" data-correct="true">To segment systems into hierarchical levels for improved security and isolation</div>
+                    <div class="answer-option" data-correct="false">To connect all systems into a single network</div>
+                    <div class="answer-option" data-correct="false">To replace legacy ICS components</div>
+                    <div class="answer-option" data-correct="false">To monitor physical processes only</div>
+                </div>
+                <div class="score-display" id="m1Score" style="display: none;"></div>
+                <button class="btn" onclick="checkAnswers(1)">Submit Answers</button>
+            </div>
+
+            <div class="navigation">
+                <button class="btn" onclick="nextModule()" id="nextBtn1" disabled>Continue to Module 2</button>
+            </div>
+        </div>
+
+        <!-- Module 2 -->
+        <div class="module-container" id="module2">
+            <div class="module-header">
+                <h2 class="module-title">Module 2: ICS/SCADA Threat Landscape</h2>
+                <div class="learning-objectives">
+                    <h3>Learning Objectives:</h3>
+                    <ul class="component-list">
+                        <li>Identify common threats to ICS/SCADA systems (e.g., malware, insider threats, ransomware)</li>
+                        <li>Understand vulnerabilities specific to ICS/SCADA environments</li>
+                        <li>Recognize adversary tactics, techniques, and procedures (TTPs) in OT environments</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Section 2.1: Common Threats to ICS/SCADA Systems</h3>
+                <p>ICS/SCADA systems face unique threats due to their reliance on legacy technologies and their critical role in infrastructure. Understanding these threats is essential for proper defense.</p>
+
+                <div class="threat-list">
+                    <div class="threat-item">
+                        <h4>Malware</h4>
+                        <p>Software designed to disrupt operations, steal data, or gain unauthorized access to control systems.</p>
+                    </div>
+                    <div class="threat-item">
+                        <h4>Insider Threats</h4>
+                        <p>Malicious actions by employees, contractors, or other trusted individuals with system access.</p>
+                    </div>
+                    <div class="threat-item">
+                        <h4>Ransomware</h4>
+                        <p>Malicious software that encrypts data and demands payment for decryption, potentially halting operations.</p>
+                    </div>
+                </div>
+
+                <div class="media-placeholder">
+                    📸 Placeholder: ICS/SCADA Attack Vectors Diagram
+                    <br>Recommended: Visual showing attack paths with arrows (phishing, malware injection, etc.)
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Section 2.2: Vulnerabilities in ICS/SCADA Systems</h3>
+                <p>ICS/SCADA systems are particularly vulnerable due to several inherent characteristics:</p>
+
+                <div class="vulnerability-item">
+                    <h4>Lack of Encryption</h4>
+                    <p>Many ICS protocols transmit data in plaintext, making communications vulnerable to interception and manipulation.</p>
+                </div>
+                <div class="vulnerability-item">
+                    <h4>Weak Authentication</h4>
+                    <p>Default passwords, shared accounts, and lack of multi-factor authentication create significant security gaps.</p>
+                </div>
+                <div class="vulnerability-item">
+                    <h4>Network Exposure</h4>
+                    <p>ICS systems often connect to external networks, increasing attack surfaces and potential entry points.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Section 2.3: Adversary TTPs in OT Environments</h3>
+                <p>Adversaries targeting operational technology (OT) environments employ specific tactics, techniques, and procedures:</p>
+
+                <ul class="component-list">
+                    <li><strong>Pivoting</strong>: Moving from enterprise IT systems to ICS networks through compromised connections</li>
+                    <li><strong>Protocol Exploitation</strong>: Exploiting ICS-specific protocols (e.g., Modbus, DNP3) that lack security features</li>
+                    <li><strong>Physical Impact</strong>: Manipulating physical processes to cause damage, disruption, or safety hazards</li>
+                </ul>
+
+                <div class="media-placeholder">
+                    🎥 Placeholder: Real-world Cyberattack Case Study Video
+                    <br>Recommended: Dramatized reenactment or expert analysis of Stuxnet or similar attack
+                </div>
+            </div>
+
+            <div class="knowledge-check">
+                <h3>Knowledge Check - Module 2</h3>
+                <div class="question" id="m2q1">
+                    <div class="question-text">Question 1: Which of the following is a common attack vector for ICS systems?</div>
+                    <div class="answer-option" data-correct="true">Phishing emails targeting operators</div>
+                    <div class="answer-option" data-correct="false">Physical theft of sensors</div>
+                    <div class="answer-option" data-correct="false">Unauthorized firmware updates</div>
+                    <div class="answer-option" data-correct="false">Overheating of actuators</div>
+                </div>
+                <div class="question" id="m2q2">
+                    <div class="question-text">Question 2: How can ransomware impact SCADA operations?</div>
+                    <div class="answer-option" data-correct="true">Ransomware encrypts critical data, disrupting operations</div>
+                    <div class="answer-option" data-correct="false">Ransomware deletes all data permanently</div>
+                    <div class="answer-option" data-correct="false">Ransomware causes physical damage to equipment</div>
+                    <div class="answer-option" data-correct="false">Ransomware prevents operators from accessing HMIs</div>
+                </div>
+                <div class="score-display" id="m2Score" style="display: none;"></div>
+                <button class="btn" onclick="checkAnswers(2)">Submit Answers</button>
+            </div>
+
+            <div class="navigation">
+                <button class="btn" onclick="previousModule()">Back to Module 1</button>
+                <button class="btn" onclick="startCapstone()" id="capstoneBtn" disabled>Continue to Capstone</button>
+            </div>
+        </div>
+
+        <!-- Capstone Project -->
+        <div class="module-container" id="capstone">
+            <div class="module-header">
+                <h2 class="module-title">Capstone Project: Cyber Range Simulation</h2>
+                <p>Test your ability to apply defensive security techniques in simulated ICS/SCADA environments.</p>
+            </div>
+
+            <div class="capstone-container">
+                <h3>Task 1: Ransomware Mitigation - Water Treatment Plant</h3>
+                <p>Scenario: A ransomware attack has been detected in the water treatment plant's SCADA system. You must identify and mitigate the threat.</p>
+                
+                <div class="simulation-frame">
+                    🎮 Cyber Range Simulation Environment
+                    <br>Water Treatment Plant Ransomware Scenario
+                    <br>(Interactive simulation would be loaded here)
+                </div>
+
+                <div class="question" id="capQ1">
+                    <div class="question-text">What is your first priority when detecting ransomware in a water treatment SCADA system?</div>
+                    <div class="answer-option" data-correct="true">Isolate affected systems to prevent spread</div>
+                    <div class="answer-option" data-correct="false">Immediately pay the ransom</div>
+                    <div class="answer-option" data-correct="false">Restart all systems</div>
+                    <div class="answer-option" data-correct="false">Continue normal operations</div>
+                </div>
+            </div>
+
+            <div class="capstone-container">
+                <h3>Task 2: Network Segmentation - Power Grid</h3>
+                <p>Scenario: Implement proper network segmentation following the Purdue Model for a power grid control system.</p>
+                
+                <div class="simulation-frame">
+                    🎮 Cyber Range Simulation Environment
+                    <br>Power Grid Network Segmentation Task
+                    <br>(Interactive simulation would be loaded here)
+                </div>
+
+                <div class="question" id="capQ2">
+                    <div class="question-text">Which Purdue Model level should be most isolated from external networks?</div>
+                    <div class="answer-option" data-correct="true">Level 0 and Level 1 (Physical processes and control systems)</div>
+                    <div class="answer-option" data-correct="false">Level 5 (Enterprise systems)</div>
+                    <div class="answer-option" data-correct="false">Level 3 (Operations management)</div>
+                    <div class="answer-option" data-correct="false">All levels should be equally isolated</div>
+                </div>
+            </div>
+
+            <div class="capstone-container">
+                <h3>Task 3: Insider Threat Detection</h3>
+                <p>Scenario: Analyze logs to detect and respond to a simulated insider threat in an industrial control environment.</p>
+                
+                <div class="simulation-frame">
+                    🎮 Cyber Range Simulation Environment
+                    <br>Log Analysis and Insider Threat Detection
+                    <br>(Interactive simulation would be loaded here)
+                </div>
+
+                <div class="question" id="capQ3">
+                    <div class="question-text">What steps would you take to isolate a compromised ICS device during an incident?</div>
+                    <div class="answer-option" data-correct="true">Disconnect the device from the network, analyze logs, and restore from backups</div>
+                    <div class="answer-option" data-correct="false">Shut down the entire ICS network</div>
+                    <div class="answer-option" data-correct="false">Replace the compromised device without analysis</div>
+                    <div class="answer-option" data-correct="false">Ignore the incident an
